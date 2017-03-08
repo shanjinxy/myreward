@@ -1,0 +1,77 @@
+<!DOCTYPE html><html><head><meta charset=utf-8><title>sell</title><meta name=viewport content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1"><meta http-equiv=X-UA-Compatible content="chrome=1"><meta name=apple-mobile-web-app-capable content=yes><link rel=stylesheet href=./static/css/reset.css><link rel=stylesheet href=static/fonts/iconfont.css><link href=/static/css/app.42c18a36b78d202750200c8dd6a4633a.css rel=stylesheet></head><body><img id=share-pic src=https://baodownload.wallstreetcn.com/yuanbao.png><div id=app></div><script type=text/javascript src=/static/js/manifest.bcad44e51d098b03b28d.js></script><script type=text/javascript src=/static/js/vendor.f68b97cb72ac7df4773f.js></script><script type=text/javascript src=/static/js/app.b91180582c64893faa42.js></script></body><script src=./static/js/jweixin-1.0.0.js></script><script>wx.config({
+      debug: false,
+      appId: 'wx57ee0c032a9a1901',
+      timestamp: 1482143548,
+      nonceStr: '738107891616263',
+      signature: 'd822a8cf48360ee0c76ea26216eb907ab0517051',
+      jsApiList: [
+        'onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ'
+      ]
+    });
+    wx.ready(function () {
+      var shareImg = window.location.origin + '/static/images/sharepic.jpeg';
+      var title = "A股奥斯卡，我也玩'乌龙'";
+      var desc = "A股奥斯卡，我也玩'乌龙'";
+      var url = "http://activity.wallstreetcn.com/xuangubao/index.html";
+      wx.onMenuShareTimeline({
+        title: title, // 分享标题
+        link: url, // 分享链接
+        imgUrl: shareImg, // 分享图标
+        success: function () {
+          // 用户确认分享后执行的回调函数
+        },
+        cancel: function () {
+          // 用户取消分享后执行的回调函数
+        }
+      });
+      wx.onMenuShareAppMessage({
+        title: title, // 分享标题
+        desc: desc, // 分享描述
+        link: url, // 分享链接
+        imgUrl: shareImg, // 分享图标
+        type: '', // 分享类型,music、video或link，不填默认为link
+        dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+        success: function () {
+          // 用户确认分享后执行的回调函数
+        },
+        cancel: function () {
+          // 用户取消分享后执行的回调函数
+        }
+      });
+      wx.onMenuShareQQ({
+        title: title, // 分享标题
+        desc: desc, // 分享描述
+        link: url, // 分享链接
+        imgUrl: shareImg, // 分享图标
+        success: function () {
+          // 用户确认分享后执行的回调函数
+        },
+        cancel: function () {
+          // 用户取消分享后执行的回调函数
+        }
+      });
+
+    });</script><script>(function (i, s, o, g, r, a, m) {
+      i['GoogleAnalyticsObject'] = r;
+      i[r] = i[r] || function () {
+          (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+      function loadGoogleAPI() {
+        a = s.createElement(o),
+          m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        setTimeout(function () {
+          m.parentNode.insertBefore(a, m)
+          ga('create', 'UA-64451198-3', 'auto');
+          ga('send', 'pageview');
+        }, 50);
+      }
+
+      if (window.addEventListener) {
+        window.addEventListener("load", loadGoogleAPI, false);
+      }
+      else if (window.attachEvent) {
+        window.attachEvent("onload", loadGoogleAPI);
+      }
+    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');</script></html>
