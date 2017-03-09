@@ -63,6 +63,7 @@
         menuWrapperX: 0,
         AuthorName: '',
         TipperPortraits: [
+          '',
           ''
 //          "http://baoimage.wallstreetcn.com/user_250702_1479280948.jpg",
         ],
@@ -239,7 +240,7 @@
       .avatarBox
         width 80%
         min-height 50px
-        margin .2rem auto
+        margin .1rem auto
         overflow hidden
         text-overflow: ellipsis
         ul
