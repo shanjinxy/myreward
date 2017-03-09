@@ -37,5 +37,6 @@ module.exports = {
     'no-undef': 0,
     'quotes':0,
     "comma-dangle": ["error", "never"],
+    "no-useless-escape":0
   }
 }

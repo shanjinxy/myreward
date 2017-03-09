@@ -3,7 +3,7 @@
     <div class="wrapper">
       <header>
         <div class="titleText">
-          <i class="icon iconfont icon-xiangzuojiantou arrowLeft"></i>
+          <!--<i class="icon iconfont icon-xiangzuojiantou arrowLeft"></i>-->
           <span class="titleWord">赞赏 作者 {{AuthorName}}</span>
         </div>
       </header>
@@ -54,8 +54,7 @@
 
 <script>
   import axios from 'axios'
-  import {getCookie} from "./utils"
-  import {getMessageId} from './utils.js'
+  import {getToken, getQueryStringByName, getMessageId} from "./utils"
   import BScroll from 'better-scroll'
   import {authorTip} from "./api"
   export default {
@@ -65,26 +64,6 @@
         AuthorName: '',
         TipperPortraits: [
           '',
-          "http://baoimage.wallstreetcn.com/user_250702_1479280948.jpg",
-          "http://baoimage.wallstreetcn.com/user_250702_1479280948.jpg",
-          "http://baoimage.wallstreetcn.com/user_250702_1479280948.jpg",
-          "",
-          '',
-          "http://baoimage.wallstreetcn.com/user_250702_1479280948.jpg",
-          "http://baoimage.wallstreetcn.com/user_250702_1479280948.jpg",
-          "http://baoimage.wallstreetcn.com/user_250702_1479280948.jpg",
-          "http://baoimage.wallstreetcn.com/user_250702_1479280948.jpg",
-          "http://baoimage.wallstreetcn.com/user_250702_1479280948.jpg",
-          "http://baoimage.wallstreetcn.com/user_250702_1479280948.jpg",
-          "",
-          "http://baoimage.wallstreetcn.com/user_250702_1479280948.jpg",
-          "http://baoimage.wallstreetcn.com/user_250702_1479280948.jpg",
-          "http://baoimage.wallstreetcn.com/user_250702_1479280948.jpg",
-          "http://baoimage.wallstreetcn.com/user_250702_1479280948.jpg",
-          "http://baoimage.wallstreetcn.com/user_250702_1479280948.jpg",
-          "http://baoimage.wallstreetcn.com/user_250702_1479280948.jpg",
-          "",
-          "http://baoimage.wallstreetcn.com/user_250702_1479280948.jpg",
           "http://baoimage.wallstreetcn.com/user_250702_1479280948.jpg",
           "http://baoimage.wallstreetcn.com/user_250702_1479280948.jpg",
           "http://baoimage.wallstreetcn.com/user_250702_1479280948.jpg"
@@ -155,14 +134,13 @@
           alert("请选择要打赏的金额");
           return false
         }
-        this.token = getCookie("X-Appgo-Token") || ''
         axios.post('/api/premium/authorTip', {
           params: {
             "MessageId": this.MessageId,
             "TipAmount": TipAmount
           },
           headers: {
-            'X-Appgo-Token': this.token,
+            'X-Appgo-Token': getToken("XAppgoToken"),
             'Content-Type': 'application/json'
           }
         }).then((res) => {
@@ -194,8 +172,17 @@
         this.activeName = ''
       },
       myTip() {
-        this.cookie = getCookie('USERID') || '';
+        this.cookie = getToken('XAppgoToken') || '';
         console.log(this.cookie);
+      },
+      backToHome() {
+        if (isAndroid()) {
+          window.pingan.finishWebView();
+        }
+        if (isIos()) {
+          var iosUrl = "func=home";
+          window.webkit.messageHandlers.Native.postMessage(iosUrl);
+        }
       }
     },
     watcher: {
