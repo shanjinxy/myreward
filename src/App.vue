@@ -20,7 +20,7 @@
         <i class="con iconfont icon-xiangyoujiantou"></i>
       </div>
       <div class="mainAvatar">
-        <img :src="tipper.AuthorPortrait" width="100" height="100" @click="myTip()">
+        <img  :src="tipper.AuthorPortrait" width="100" height="100" @click="myTip()">
       </div>
       <div class="pricebox">
         <ul class="clearfix " id="listbox">
@@ -54,7 +54,7 @@
 
 <script>
   import axios from 'axios'
-  import {getToken, getQueryStringByName, getMessageId} from "./utils"
+  import {getToken, getQueryStringByName} from "./utils"
   import BScroll from 'better-scroll'
   import {authorTip} from "./api"
   export default {
@@ -63,10 +63,8 @@
         menuWrapperX: 0,
         AuthorName: '',
         TipperPortraits: [
-          '',
-          "http://baoimage.wallstreetcn.com/user_250702_1479280948.jpg",
-          "http://baoimage.wallstreetcn.com/user_250702_1479280948.jpg",
-          "http://baoimage.wallstreetcn.com/user_250702_1479280948.jpg"
+          ''
+//          "http://baoimage.wallstreetcn.com/user_250702_1479280948.jpg",
         ],
         priceLists: ['5.8', '8.8', '18.8', '28.8', '58.8', '88.8'],
         activeName: '',
@@ -82,7 +80,7 @@
     created() {
       axios.get('/api/premium/authorTips', {
         params: {
-          messageid: this.messageid
+          messageid: getQueryStringByName('messageid') || 123
         }
       })
         .then((res) => {
@@ -187,8 +185,7 @@
     },
     watcher: {
       messageid() {
-        const url = window.location.pathname;
-        return getMessageId(url) || ' '
+        return getQueryStringByName('messageid') || ' '
       }
     }
   }
