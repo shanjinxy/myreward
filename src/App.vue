@@ -20,7 +20,7 @@
         <i class="con iconfont icon-xiangyoujiantou"></i>
       </div>
       <div class="mainAvatar">
-        <img  :src="tipper.AuthorPortrait" width="100" height="100" @click="myTip()">
+        <img :src="tipper.AuthorPortrait" width="100" height="100" @click="myTip()">
       </div>
       <div class="pricebox">
         <ul class="clearfix " id="listbox">
@@ -54,7 +54,7 @@
 
 <script>
   import axios from 'axios'
-  import {getToken, getQueryStringByName} from "./utils"
+  import {getToken, getQueryStringByName, getCookie} from "./utils"
   import BScroll from 'better-scroll'
   import {authorTip} from "./api"
   export default {
@@ -144,13 +144,13 @@
         }).then((res) => {
           console.log(res.data)
           if (res.data.errcode === 40100) {
-            this.unloginMessage = "您还未注册登录"
-            this.unloginText = "请至 首页左上角-我的主页-登陆并充值才可以给作者打赏哦"
+            this.unloginMessage = "您还未登录"
+            this.unloginText = "请至 选股宝首页左上角-我的主页-登陆充值才可以给作者打赏哦"
             this.popShow = true
           }
           if (res.data.errcode === 40001) {
             this.unloginMessage = "您的余额不足"
-            this.unloginText = "请至 首页左上角-我的主页-我的钱包进行充值"
+            this.unloginText = "请至 选股宝首页左上角-我的主页-我的钱包进行充值"
             this.popShow = true
           }
           if (res.data.errcode === 50000) {
@@ -170,17 +170,8 @@
         this.activeName = ''
       },
       myTip() {
-        this.cookie = getToken('XAppgoToken') || '';
+        this.cookie = getCookie('_ga').toLowerCase() || '';
         console.log(this.cookie);
-      },
-      backToHome() {
-        if (isAndroid()) {
-          window.pingan.finishWebView();
-        }
-        if (isIos()) {
-          var iosUrl = "func=home";
-          window.webkit.messageHandlers.Native.postMessage(iosUrl);
-        }
       }
     },
     watcher: {
@@ -338,8 +329,12 @@
         font-size .16rem
         transform translateY(-50%)
         .popbox
-          padding: 30% 20%
+          padding: 30% 16%
           color: #A13103
+          .title
+            margin-top .2rem
+            font-weight 700
+            font-size .17rem
           .text
             margin-top 20px
             line-height 1.2
