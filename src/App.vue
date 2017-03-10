@@ -81,7 +81,7 @@
     created() {
       axios.get('/api/premium/authorTips', {
         params: {
-          messageid: getQueryStringByName('messageid') || 123
+          messageid: getQueryStringByName('messageid') || ''
         }
       })
         .then((res) => {
@@ -134,12 +134,11 @@
           return false
         }
         axios.post('/api/premium/authorTip', {
-          params: {
-            "MessageId": this.MessageId,
-            "TipAmount": TipAmount
-          },
+          "MessageId": this.messageid,
+          "TipAmount": TipAmount
+        }, {
           headers: {
-            'X-Appgo-Token': getToken("XAppgoToken"),
+            'X-Appgo-Token': getToken("XAppgoToken") || "",
             'Content-Type': 'application/json'
           }
         }).then((res) => {
@@ -171,13 +170,13 @@
         this.activeName = ''
       },
       myTip() {
-        this.cookie = getCookie('_ga').toLowerCase() || '';
+        this.cookie = getToken('XAppgoToken') || '';
         console.log(this.cookie);
       }
     },
     watcher: {
       messageid() {
-        return getQueryStringByName('messageid') || ' '
+        return getQueryStringByName('messageid') || ''
       }
     }
   }

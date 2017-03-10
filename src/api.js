@@ -25,10 +25,9 @@ export function getTipper(messageid) {
 // 打赏作者
 export function authorTip(MessageId, TipAmount, token) {
   return axios.post('/api/premium/authorTip', {
-    params: {
-      MessageId,
-      TipAmount
-    },
+    MessageId,
+    TipAmount
+  }, {
     header: {
       "X-Appgo-Token": token,
       'Content-Type': 'application/json'
