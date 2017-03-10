@@ -79,13 +79,17 @@
       }
     },
     created() {
+      const messageid = getQueryStringByName("messageid") || 123
+      this.messageid = messageid.toString();
+      console.log(typeof (this.messageid));
       axios.get('/api/premium/authorTips', {
         params: {
-          messageid: getQueryStringByName('messageid') || ''
+          messageid: this.messageid
         }
       })
         .then((res) => {
           console.log(res.data)
+//          console.log(typeof(this.messageid));
           this.tipper = res.data
           this.tipCount = res.data.TipCount
           this.AuthorName = res.data.AuthorName
@@ -128,17 +132,18 @@
           eventAction: 'click',
           eventLabel: '打赏活动'
         })
-        const TipAmount = this.activeName
+        const TipAmount = parseFloat(this.activeName);
         if (!TipAmount) {
           alert("请选择要打赏的金额");
           return false
         }
+        console.log(typeof (TipAmount));
         axios.post('/api/premium/authorTip', {
           "MessageId": this.messageid,
           "TipAmount": TipAmount
         }, {
           headers: {
-            'X-Appgo-Token': getToken("XAppgoToken") || "",
+            'X-Appgo-Token': window.XAppgoToken || "",
             'Content-Type': 'application/json'
           }
         }).then((res) => {
@@ -162,6 +167,15 @@
             this.unloginMessage = "打赏成功"
             this.unloginText = this.AuthorName + "老师已经收到您的打赏，感谢支持！"
             this.popShow = true
+            axios.get('/api/premium/authorTips', {
+              params: {
+                messageid: this.messageid
+              }
+            }).then((res) => {
+              this.tipCount = res.data.TipCount
+              this.TipperPortraits = res.data.TipperPortraits.slice(0, 10)
+              window.title = "我刚刚在选股宝打赏这个帖子￥" + this.activeName + "分享给你"
+            })
           }
         })
       },
@@ -170,13 +184,14 @@
         this.activeName = ''
       },
       myTip() {
-        this.cookie = getToken('XAppgoToken') || '';
+//        this.cookie = getToken('XAppgoToken') || '';
+        this.cookie = window.XAppgoToken;
         console.log(this.cookie);
       }
     },
     watcher: {
       messageid() {
-        return getQueryStringByName('messageid') || ''
+        return getQueryStringByName('messageid') || 123
       }
     }
   }
