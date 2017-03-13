@@ -12,7 +12,9 @@ import axios from "axios";
 // axios.defaults.baseURL = 'https://next-api.wallstreetcn.com';
 
 // 开发环境
-axios.defaults.baseURL = 'http://192.168.101.108:3000';
+
+// axios.defaults.baseURL = 'http://192.168.101.108:3000';
+   axios.defaults.baseURL = window.host;
 // 获取打赏人的信息
 export function getTipper(messageid) {
   return axios.get('/api/premium/authorTips', {

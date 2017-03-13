@@ -63,8 +63,6 @@
         menuWrapperX: 0,
         AuthorName: '',
         TipperPortraits: [
-          '',
-          ''
 //          "http://baoimage.wallstreetcn.com/user_250702_1479280948.jpg",
         ],
         priceLists: ['5.8', '8.8', '18.8', '28.8', '58.8', '88.8'],
@@ -203,7 +201,6 @@
     height: 100%
     min-height: 100%
     overflow-x hidden
-
   html
     font-size 100px
 
