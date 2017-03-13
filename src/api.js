@@ -14,8 +14,8 @@ import axios from "axios";
 // 开发环境
 
 // axios.defaults.baseURL = 'http://192.168.101.108:3000';
-//    axios.defaults.baseURL = window.host;
-     axios.defaults.baseURL = "http://test.bao.wallstreetcn.com:3000"
+   axios.defaults.baseURL = window.host;
+     // axios.defaults.baseURL = "http://test.bao.wallstreetcn.com:3000"
 // 获取打赏人的信息
 export function getTipper(messageid) {
   return axios.get('/api/premium/authorTips', {
