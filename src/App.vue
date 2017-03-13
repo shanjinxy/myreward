@@ -20,7 +20,9 @@
         <i class="con iconfont icon-xiangyoujiantou"></i>
       </div>
       <div class="mainAvatar">
-        <img :src="tipper.AuthorPortrait" width="100" height="100" @click="myTip()">
+        <img :src="tipper.AuthorPortrait" v-if="tipper.AuthorPortrait" width="100" height="100" @click="myTip()">
+        <img v-if="!tipper.AuthorPortrait" src="../static/images/defaultAvatar.png" height="100" width="100" alt="">
+        <img>
       </div>
       <div class="pricebox">
         <ul class="clearfix " id="listbox">
@@ -150,6 +152,7 @@
             this.unloginMessage = "您还未登录"
             this.unloginText = "请至 选股宝首页左上角-我的主页-登陆充值才可以给作者打赏哦"
             this.popShow = true
+            document.title = "我刚刚在选股宝打赏这个帖子￥" + this.activeName + "分享给你"
           }
           if (res.data.errcode === 40001) {
             this.unloginMessage = "您的余额不足"
@@ -172,7 +175,7 @@
             }).then((res) => {
               this.tipCount = res.data.TipCount
               this.TipperPortraits = res.data.TipperPortraits.slice(0, 10)
-              window.title = "我刚刚在选股宝打赏这个帖子￥" + this.activeName + "分享给你"
+              document.title = "我刚刚在选股宝打赏这个帖子￥" + this.activeName + "分享给你"
             })
           }
         })
@@ -201,6 +204,7 @@
     height: 100%
     min-height: 100%
     overflow-x hidden
+    background-color rgb(244, 244, 244)
   html
     font-size 100px
 
@@ -234,6 +238,7 @@
       text-align center
       background url('../static/images/bg.jpg')
       background-size 100% 100%
+      overflow hidden
       header
         position relative
         padding .2rem 2%
@@ -319,7 +324,7 @@
       font-size: .16rem
       line-height: 1.8
       .logo
-        padding: .5rem 37% .1rem 37%
+        padding: .2rem 37% .1rem 37%
         img
           width: 100%;
           margin: 0 auto;
