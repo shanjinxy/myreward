@@ -37,7 +37,7 @@
       </div>
       <footer>
         <p>* 请确保您的余额充足，充值请至首页左上角</p>
-        <p>--我的主页-我的钱包 进行充值</p>
+        <p> -我的主页-我的钱包 进行充值</p>
         <div class="logo">
           <img src="../static/images/footer-0.png" alt="">
         </div>
@@ -46,7 +46,7 @@
         <div class="popimg">
           <div class="popbox">
             <p class="title">{{unloginMessage}}</p>
-            <p class="text">{{unloginText}}</p>
+            <p class="text" v-html="unloginText"></p>
           </div>
         </div>
       </div>
@@ -69,7 +69,7 @@
         ],
         priceLists: ['5.8', '8.8', '18.8', '28.8', '58.8', '88.8'],
         activeName: '',
-        unloginText: ' 请至 首页左上角-我的主页-登陆并充值才可以给作者打赏哦',
+        unloginText: ' ',
         popShow: false,
         unloginMessage: '您还未注册登陆',
         tipCount: '',
@@ -134,7 +134,9 @@
         })
         const TipAmount = parseFloat(this.activeName);
         if (!TipAmount) {
-          alert("请选择要打赏的金额");
+          this.unloginMessage = "请选择要打赏的金额";
+          this.unloginText = " ";
+          this.popShow = true
           return false
         }
         console.log(typeof (TipAmount));
@@ -150,13 +152,12 @@
           console.log(res.data)
           if (res.data.errcode === 40100) {
             this.unloginMessage = "您还未登录"
-            this.unloginText = "请至 选股宝首页左上角-我的主页-登陆充值才可以给作者打赏哦"
+            this.unloginText = "请至 选股宝首页左上角-我的主页" + "<br>" + "-登陆充值才可以给作者打赏哦"
             this.popShow = true
-            document.title = "我刚刚在选股宝打赏这个帖子￥" + this.activeName + "分享给你"
           }
           if (res.data.errcode === 40001) {
             this.unloginMessage = "您的余额不足"
-            this.unloginText = "请至 选股宝首页左上角-我的主页-我的钱包进行充值"
+            this.unloginText = "请至 选股宝首页左上角-我的主页" + "<br>" + "-我的钱包进行充值"
             this.popShow = true
           }
           if (res.data.errcode === 50000) {
@@ -166,7 +167,7 @@
           }
           if (res.data.TipId) {
             this.unloginMessage = "打赏成功"
-            this.unloginText = this.AuthorName + "老师已经收到您的打赏，感谢支持！"
+            this.unloginText = this.AuthorName + "老师已经收到您的打赏，" + "<br>" + "感谢支持！"
             this.popShow = true
             axios.get('/api/premium/authorTips', {
               params: {
@@ -205,6 +206,7 @@
     min-height: 100%
     overflow-x hidden
     background-color rgb(244, 244, 244)
+
   html
     font-size 100px
 
@@ -355,5 +357,4 @@
           .text
             margin-top 20px
             line-height 1.2
-
 </style>
